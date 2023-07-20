@@ -97,7 +97,7 @@ public class StudentsGroup {
     }
 
 
-    // Метод, що повертає список студентів, які отримали певне завдання
+    // A method that returns a list of students who received a specific task
     public List<Student> getStudentsWithAssignment(String assignment) {
         List<Student> studentsWithAssignment = new ArrayList<>();
         for (Student student : students) {

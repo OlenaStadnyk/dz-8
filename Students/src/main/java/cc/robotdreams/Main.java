@@ -4,7 +4,7 @@ import  java.util.ArrayList;
 import java.util.List;
 public class Main {
     public static void main(String[] args) {
-        // Створення об'єктів студентів
+        // Creating students objects
         Student rachel = new Student(1, "Rachel", "Green");
         Student monica = new Student(2, "Monica", "Geller");
         Student phoebe = new Student(3, "Phoebe", "Buffay");
@@ -14,10 +14,10 @@ public class Main {
         Student gunther = new Student(7, "Gunther", "Smith");
         Student janice = new Student(8, "Janice", "Fox");
 
-        // Створення об'єкту групи студентів зі старостою Rachel Green
+        // Creating the group object with headman Rachel Green
         StudentsGroup group = new StudentsGroup(rachel);
 
-        // Додавання всіх студентів до групи
+        // Adding all students to the group
         group.addStudent(rachel);
         group.addStudent(monica);
         group.addStudent(phoebe);
@@ -27,23 +27,23 @@ public class Main {
         group.addStudent(gunther);
         group.addStudent(janice);
 
-        // Зміна старости на Monica Geller
+        // Headman changing to Monica Geller
         group.setHead(monica);
 
-        // Додавання завдання для всієї групи
+        // Adding a task for the whole group
         group.addAssignment("To study encapsulation");
 
-        // Позначення завдання як виконаного для студентів
+        // Marking the task as performed for students
         group.markAssignmentAsDone(monica, "To study encapsulation");
         group.markAssignmentAsDone(phoebe, "To study encapsulation");
         group.markAssignmentAsDone(joey, "To study encapsulation");
         group.markAssignmentAsDone(chandler, "To study encapsulation");
 
-        // Додавання завдання "First task" для студента Monica Geller та Phoebe Buffay
+        // Adding the "First Task" task for Monica Geller and Phoebe Buffay
         group.getCompletedAssignments(monica).add("First task");
         group.getCompletedAssignments(phoebe).add("First task");
 
-        // Виведення списку студентів як масив в консоль
+        // Output students' list as an array in a console
         System.out.println("Students list:");
         for (Student student : group.getStudents()) {
             System.out.println(student.getId() + " " + student.getFirstName() + " " + student.getLastName());
@@ -51,19 +51,19 @@ public class Main {
 
         System.out.println("Group head: " + group.getHead());
 
-        // Список студентів, для яких хочемо вивести завдання
+        // List of students who received the task
         List<Student> studentsToDisplayAssignments = new ArrayList<>();
         studentsToDisplayAssignments.add(monica);
         studentsToDisplayAssignments.add(phoebe);
         studentsToDisplayAssignments.add(joey);
         studentsToDisplayAssignments.add(chandler);
 
-        // Виведення завдань групи та завдань, що були виконані для вибраних студентів
+        // Show the task for this group and task that was completed for selected students
         System.out.println("Group assignments:");
         for (String assignment : group.getAssignments()) {
             System.out.println("  " + assignment);
 
-            // Виведення студентів, які отримали завдання "To study encapsulation"
+            // Display the students who received the "To Study Encapsulation" task
             System.out.println("Students who received the assignment \"To study encapsulation\":");
             List<Student> studentsWithEncapsulationAssignment = group.getStudentsWithAssignment("To study encapsulation");
             for (Student student : studentsWithEncapsulationAssignment) {

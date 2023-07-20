@@ -55,6 +55,7 @@ public class Student {
         return completedAssignments;
     }
 
+    // override toString() method for Student class
     @Override
     public String toString() {
         return firstName + " " + lastName;
