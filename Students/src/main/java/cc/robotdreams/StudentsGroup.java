@@ -8,8 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class StudentsGroup {
+    public static final String TO_STUDY_ENCAPSULATION = "To study encapsulation" ;
     private Student head;
-    private Set<Student> students;
+    private List<Student> students;
     private List<String> assignments;
     private Map<Student, List<String>> completedAssignments;
 
@@ -18,7 +19,7 @@ public class StudentsGroup {
             throw new IllegalArgumentException("Error: Group must have a head student.");
         }
         this.head = head;
-        this.students = new LinkedHashSet<>();
+        this.students = new ArrayList<>();
         assignments = new ArrayList<>();
         //completedAssignments = new HashMap<>();
         this.completedAssignments = new HashMap<>();
@@ -36,6 +37,23 @@ public class StudentsGroup {
         }
     }
 
+    public void removeStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Error: Student cannot be null.");
+        }
+        if (students.contains(student)) {
+            if (student.equals(head)) {
+                // If the student being removed is the head, appoint a new head from the remaining students
+                students.remove(student);
+                head = students.isEmpty() ? null : students.iterator().next();
+            } else {
+                students.remove(student);
+            }
+            completedAssignments.remove(student);
+        }
+    }
+
+
     public String getHead() {
         return head.toString();
     }
@@ -43,6 +61,10 @@ public class StudentsGroup {
     public void setHead(Student head) {
         if (head == null) {
             throw new IllegalArgumentException("Error: Group must have a head student.");
+        }
+        if (!students.contains(head)) {
+            students.add(head);
+            completedAssignments.put(head, new ArrayList<>());
         }
         this.head = head;
     }
@@ -59,9 +81,11 @@ public class StudentsGroup {
         if (assignment == null || assignment.isEmpty()) {
             throw new IllegalArgumentException("Error: Assignment cannot be null or empty.");
         }
-        assignments.add(assignment);
-        for (Student student : students) {
-            completedAssignments.putIfAbsent(student, new ArrayList<>());
+        if (!assignments.contains(assignment)) {
+            assignments.add(assignment);
+            for (Student student : students) {
+                completedAssignments.putIfAbsent(student, new ArrayList<>());
+            }
         }
     }
 
@@ -95,7 +119,6 @@ public class StudentsGroup {
         }
         return completedAssignments.getOrDefault(student, new ArrayList<>());
     }
-
 
     // A method that returns a list of students who received a specific task
     public List<Student> getStudentsWithAssignment(String assignment) {

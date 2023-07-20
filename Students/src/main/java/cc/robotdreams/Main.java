@@ -1,18 +1,18 @@
 package cc.robotdreams;
 
-import  java.util.ArrayList;
 import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         // Creating students objects
-        Student rachel = new Student(1, "Rachel", "Green");
-        Student monica = new Student(2, "Monica", "Geller");
-        Student phoebe = new Student(3, "Phoebe", "Buffay");
-        Student joey = new Student(4, "Joey", "Tribbiani");
-        Student chandler = new Student(5, "Chandler", "Bing");
-        Student ross = new Student(6, "Ross", "Geller");
-        Student gunther = new Student(7, "Gunther", "Smith");
-        Student janice = new Student(8, "Janice", "Fox");
+        Student rachel = new Student("Rachel", "Green");
+        Student monica = new Student("Monica", "Geller");
+        Student phoebe = new Student("Phoebe", "Buffay");
+        Student joey = new Student("Joey", "Tribbiani");
+        Student chandler = new Student("Chandler", "Bing");
+        Student ross = new Student("Ross", "Geller");
+        Student gunther = new Student("Gunther", "Smith");
+        Student janice = new Student("Janice", "Fox");
 
         // Creating the group object with headman Rachel Green
         StudentsGroup group = new StudentsGroup(rachel);
@@ -31,13 +31,13 @@ public class Main {
         group.setHead(monica);
 
         // Adding a task for the whole group
-        group.addAssignment("To study encapsulation");
+        group.addAssignment(StudentsGroup.TO_STUDY_ENCAPSULATION);
 
         // Marking the task as performed for students
-        group.markAssignmentAsDone(monica, "To study encapsulation");
-        group.markAssignmentAsDone(phoebe, "To study encapsulation");
-        group.markAssignmentAsDone(joey, "To study encapsulation");
-        group.markAssignmentAsDone(chandler, "To study encapsulation");
+        group.markAssignmentAsDone(monica, StudentsGroup.TO_STUDY_ENCAPSULATION);
+        group.markAssignmentAsDone(phoebe, StudentsGroup.TO_STUDY_ENCAPSULATION);
+        group.markAssignmentAsDone(joey, StudentsGroup.TO_STUDY_ENCAPSULATION);
+        group.markAssignmentAsDone(chandler, StudentsGroup.TO_STUDY_ENCAPSULATION);
 
         // Adding the "First Task" task for Monica Geller and Phoebe Buffay
         group.getCompletedAssignments(monica).add("First task");
@@ -52,25 +52,18 @@ public class Main {
         System.out.println("Group head: " + group.getHead());
 
         // List of students who received the task
-        List<Student> studentsToDisplayAssignments = new ArrayList<>();
-        studentsToDisplayAssignments.add(monica);
-        studentsToDisplayAssignments.add(phoebe);
-        studentsToDisplayAssignments.add(joey);
-        studentsToDisplayAssignments.add(chandler);
-
-        // Show the task for this group and task that was completed for selected students
         System.out.println("Group assignments:");
         for (String assignment : group.getAssignments()) {
             System.out.println("  " + assignment);
 
             // Display the students who received the "To Study Encapsulation" task
-            System.out.println("Students who received the assignment \"To study encapsulation\":");
-            List<Student> studentsWithEncapsulationAssignment = group.getStudentsWithAssignment("To study encapsulation");
+            System.out.println("Students who received the assignment \"" + assignment + "\":");
+            List<Student> studentsWithEncapsulationAssignment = group.getStudentsWithAssignment(assignment);
             for (Student student : studentsWithEncapsulationAssignment) {
                 System.out.println("  " + student.getFirstName());
             }
-
         }
+
         System.out.println("Completed assignments by Monica Geller:");
         for (String assignment : group.getCompletedAssignments(monica)) {
             System.out.println("  " + assignment);
